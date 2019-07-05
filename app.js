@@ -1,6 +1,6 @@
 function pressButton(color) {
     $(`#${color}`).on("click", function () {
-        var audio = new Audio(`sounds/${color}.mp3`);
+        let audio = new Audio(`sounds/${color}.mp3`);
         audio.play();
 
         $(this).addClass("pressed").delay(50).queue(function () {
@@ -17,32 +17,51 @@ pressButton('blue');
 
 
 
-function blinkRandomColor() {
+function randomColor() {
 
     let color = {
-        'green': 1,
-        'red': 2,
-        'yellow': 3,
-        'blue': 4
+        'green': 0,
+        'red': 1,
+        'yellow': 2,
+        'blue': 3
     }
 
-    var randomColor = (Math.floor(Math.random() * 4)) + 1;
+    var randomColor = (Math.floor(Math.random() * 4));
 
-    return Object.keys(color)[randomColor - 1]
+    return Object.keys(color)[randomColor];
 }
 
 
 function gameOver() {
-    // $("body").css({
-    //     "background-color": "red",
-    //     "opacity": 0.8
-    // }).delay(50).queue(function () {
-    //     $(this).css({
-    //         "background-color": "#011F3F",
-    //         "opacity": 0
-    //     }).dequeue();
-    // })
+    $("body").css('background-color', '').addClass("game-over").delay(50).queue(function () {
+        $(this).removeClass("game-over").css('background-color', '#011F3F').dequeue();
+    })
+    let audio = new Audio("sounds/wrong.mp3");
+    audio.play();
 
 }
 
-$("body").on("click", gameOver);
+
+function flashRandomColor() {
+    let audio = new Audio(`sounds/${randomColor()}.mp3`);
+    audio.play();
+    $(`#${randomColor()}`).fadeOut(50).fadeIn(50);
+}
+
+// $("body").on("click", gameOver);
+// flashRandomColor(randomColor());
+
+// function increaseLevel(level) {
+//     level++;
+// }
+
+function startGame() {
+    let level = 1;
+    $(document).on("keypress", function () {
+
+        $("#level-title").text(`Level ${level}`);
+        flashRandomColor();
+    })
+}
+
+startGame();

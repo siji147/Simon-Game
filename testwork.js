@@ -1,7 +1,7 @@
 // var rand = (Math.floor(Math.random() * 4)) + 1;
 // console.log(rand);
 
-function blinkRandomColor() {
+function randomColor() {
 
     let color = {
         'green': 0,
@@ -10,9 +10,9 @@ function blinkRandomColor() {
         'blue': 3
     }
 
-    var randomColor = (Math.floor(Math.random() * 4)) + 1;
+    var randomColor = (Math.floor(Math.random() * 4));
 
-    return Object.keys(color)[randomColor - 1];
+    return Object.keys(color)[randomColor];
 }
 
-console.log(blinkRandomColor());
+console.log(randomColor());
