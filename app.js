@@ -1,8 +1,11 @@
+var evt = {};
+
+
 function pressButton(color) {
-    $(`#${color}`).on("click", function () {
+    $(`#${color}`).on("click", function (ev) {
         let audio = new Audio(`sounds/${color}.mp3`);
         audio.play();
-
+        evt = ev;
         $(this).addClass("pressed").delay(50).queue(function () {
             $(this).removeClass("pressed").dequeue();
         })
@@ -61,6 +64,7 @@ function startGame() {
 
         $("#level-title").text(`Level ${level}`);
         flashRandomColor();
+        console.log(evt);
     })
 }
 
